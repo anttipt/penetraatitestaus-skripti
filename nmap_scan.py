@@ -1,6 +1,23 @@
 import subprocess
+import os
 
-output_path = "C:/Users/antti/OneDrive/Työpöytä/anttipt/kyberpuolustus_eettinen_hakkerointi/penetration-testing-script/results/nmap_results.txt"
-command = ["nmap", "-sS", "-sV", "-O", "-p-", "-oN", output_path, "192.168.1.180"]
+# Kohde-IP
+target_ip = "192.168.1.130"
 
-subprocess.run(command)
+# Tulosten tallennuskansio
+results_dir = r"C:\Users\antti\OneDrive\Työpöytä\anttipt\penetraatitestaus-skripti\results"
+os.makedirs(results_dir, exist_ok=True)
+
+# Tulostiedoston polku
+output_file = os.path.join(results_dir, "nmap_results.txt")
+
+# Nmap-komento (käytä 'nmap' jos PATHissa, muuten täysi polku esim. r"C:\Program Files (x86)\Nmap\nmap.exe")
+command = ["nmap", "-sS", "-sV", "-O", "-p-", "-oN", output_file, target_ip]
+
+try:
+    subprocess.run(command, check=True)
+    print(f"Nmap-skannaus valmis! Tulokset tallennettu: {output_file}")
+except FileNotFoundError:
+    print("Virhe: Nmapia ei löytynyt. Varmista että se on asennettu ja PATHissa.")
+except subprocess.CalledProcessError as e:
+    print("Skannaus epäonnistui:", e)
