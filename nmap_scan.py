@@ -5,7 +5,7 @@ import os
 target_ip = "192.168.1.130"
 
 # Tulosten tallennuskansio
-results_dir = r"C:\Users\antti\OneDrive\Työpöytä\anttipt\penetraatitestaus-skripti\results"
+results_dir = output_file = r"C:\temp\nmap_results.txt"
 os.makedirs(results_dir, exist_ok=True)
 
 # Tulostiedoston polku
